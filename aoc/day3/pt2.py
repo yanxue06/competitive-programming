@@ -20,9 +20,7 @@ for bank in f:
 
     for j in range(12): 
         
-        # we want 12 batteries  
         largest = '-1' 
-
         for k in range(largestIndex + 1, len(bank) - 11 + j):
             cur = bank[k]
             if cur > largest: 
