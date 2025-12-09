@@ -26,38 +26,33 @@ print("# rows:", len(grid))
 total = 0 
 allIndexes = set() 
 
-for i in range(len(grid)): 
-    for j in range(len(grid[0])): 
-        
-        count = 0 
-        # iterate in the surrounding 8 
-        # in a square i guess 
-        if grid[i][j] != "@": 
-            continue 
-        
-        # left center  
-        if (j - 1) >= 0: 
-            if grid[i][j-1] == "@": 
-                count+= 1 
-        
-        if (j + 1) < len(grid[0]):
-        # right center 
-            if grid[i][j+1] == "@": 
-                count+= 1 
-        
-        # top row 
-        if (i - 1) >= 0:
-            for k in range(-1, 2): 
-                if 0 <= (j + k) < len(grid[0]) and grid[i - 1][j + k] == "@": 
-                    count+= 1 
+directions = [
+    (-1, -1), (-1, 0), (-1, 1),
+    ( 0, -1),          ( 0, 1),
+    ( 1, -1), ( 1, 0), ( 1, 1)
+]
 
-        # bottom row 
-        if (i + 1) < len(grid): 
-            for k in range(-1, 2):
-                if 0 <= (j + k) < len(grid[0]) and grid[i + 1][j + k] == "@": 
-                    count+=1 
+num_rows = len(grid)
+num_cols = len(grid[0])
+
+for i in range(num_rows):
+    for j in range(num_cols):
+
+        if grid[i][j] != "@":
+            continue
+
+        count = 0
+        
+        for dr, dc in directions:
             
-        if count < 4: 
+            ni, nj = i + dr, j + dc
+
+            if 0 <= ni < num_rows and 0 <= nj < num_cols:
+                
+                if grid[ni][nj] == "@":
+                    count += 1
+        
+        if count < 4:
             allIndexes.add((i, j))
 
 print(len(allIndexes))
